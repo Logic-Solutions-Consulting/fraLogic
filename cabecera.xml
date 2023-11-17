@@ -1,0 +1,72 @@
+<t t-name="web.external_layout_standard">
+    <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        <div class="row">
+            <div class="col-3 mb4">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 115px;" alt="Logo"/>
+            </div>
+            <div class="col-9 text-end" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+        </div>
+        <div t-if="company.logo or company.report_header" class="row zero_min_height">
+        </div>
+        <div class="row" style="margin-top: 1em">
+            <div class="col-6" name="company_address">
+                <div t-attf-class="pull-left" t-attf-style="font-weight: 100; font: 1rem lucida-console,sans-serif;">
+                    <strong>
+                        <span t-field="company.partner_id"/>
+                    </strong>
+                    <br/>
+                    <span t-field="company.partner_id.vat"/>
+                    <br/>
+                    <span t-field="company.partner_id.street"/>
+                    <br/>
+                    <span t-field="company.partner_id.city"/>
+                    <br/>
+                    <span t-field="company.partner_id.state_id"/>
+                    <span>, </span>
+                    <span t-field="company.partner_id.country_id"/>
+                    <br/>
+                    <span t-field="company.partner_id.phone"/>
+                    <br/>
+                    <span t-field="company.partner_id.email"/>
+                    <br/>
+                    <span t-field="company.partner_id.website"/>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <div class="pt-5">
+            <!-- This div ensures that the address is not cropped by the header. -->
+            <t t-call="web.address_layout"/>
+        </div>
+        <t t-out="0"/>
+    </div>
+
+    <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+        <div style="font-size: 12px;">
+                FORMA DE PAGO: Las factras emitidas por LOGIC SOLUTIONS deberán ser abonadas a los
+                30 dias desde la fecha de emisión de la factura meidate transferencia bancaria.
+        </div>
+        <div style="width: 100%; border: 1px solid grey; margin-top: 0.5em; margin-bottom: 0.5em;"/>
+        <div style="font-size: 10px; margin-bottom: 10px;">LOGIC SOLUTIONS CONSULTING, S.L.,
+                inscrito en el Registro
+                Mercantil de Palma de Mallorca Tomo 2544, Libro 0, Folio 107, inscripción 1, Hoja
+                PM-72272. LOGIC SOLUTIONS CONSULTING, S.L., trata la
+                información que nos facilitas con el fin de prestarte el servicio contratado y
+                realizar la gestión administrativa y contable del mismo, siendo la base legal la
+                ejecución del contrato. También
+                te enviaremos comunicaciones comerciales sobre nuestras novedades, servicios y
+                productos. Los datos proporcionados se conservarán durante los años necesarios para
+                cumplir con las obligaciones
+                legales o hasta que te des de baja, según el caso y como indican nuestras
+                Condiciones de Uso y Privacidad. Tus datos no se cederán a terceros, salvo
+                obligación legal. Puedes ejercer tus derechos
+                de acceso, rectificación, supresión, limitación de tu tratamiento, oposición y
+                portabilidad de tus datos mediante correo postal a la Av. Arquitecte Gaspar Bennazar
+                7, 9A CP 07004 - Palma de
+                Mallorca, Islas Baleares, España o a través de correo electrónico en
+                info@logicsolutions.es, según indican nuestras Condiciones de Uso y Privacidad.
+        </div>
+    </div>
+</t>
