@@ -1,4 +1,3 @@
-<!-- Añadido la plantilla de neteges por si no puede servir la opción de imprimir campos de forma condicional linea 287 apartado Cobros/Vencimientos -->
 <t t-name="invoice_format_editor.custom_template_report_invoice_normal">
     <t t-if="o and 'company_id' in o">
         <t t-set="company" t-value="o.company_id"/>
@@ -269,10 +268,6 @@
                   <tbody style="border: none;">
                       <tr style="border: none;">
                           <td style="border: none; padding: 10px;">
-                              <t t-if="o.invoice_payment_term_id">
-                                <span t-field="o.invoice_payment_term_id"/>
-                                <br/>
-                              </t>
                               <t t-if="o.invoice_date_due">
                                 <span t-field="o.invoice_date_due"/>
                               </t>
@@ -284,9 +279,9 @@
                               <span t-field="o.invoice_payment_term_id"/>
                           </td>
                           <td style="border: none;">
-                                <t t-if="'Transferencia' in o.invoice_payment_term_id.name"><span>Neteges CC</span></t>
+                                <t t-if="'Transferencia' in o.invoice_payment_term_id.name"><span>ES87 2100 0386 2102 0040 4932</span></t>
                                 <t t-elif="'Recibo' in o.invoice_payment_term_id.name"><span t-field="o.partner_id.x_Domicilia"/></t>
-                                <t t-elif="'Confirming' in o.invoice_payment_term_id.name"><span>Neteges CC</span></t>
+                                <t t-elif="'Confirming' in o.invoice_payment_term_id.name"><span>ES87 2100 0386 2102 0040 4932</span></t>
                                 <t t-elif="'Pagaré' in o.invoice_payment_term_id.name"><span>Pagaré</span></t>
                           </td>
                       </tr>
