@@ -8,7 +8,7 @@
     <div class="header row mt32 mb32 first-page">
         <div class="col-6">
             <div t-attf-class="pull-left">
-                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-bottom: 1em; max-height: 115px;" alt="Logo"/>
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-bottom: 1em; max-height: 85px; width: auto;" alt="Logo"/>
             </div>
             <div t-attf-class="pull-left" t-attf-style="font-weight: 100; font:1rem lucida-console,sans-serif; color:#{o.theme_id.company_text_color} !important;">
                 <strong>
@@ -122,7 +122,7 @@
     </div>
     <t t-call="web.external_layout">
         <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
-        <div class="page">
+        <div class="page" style="position: relative;">
             <div style="margin-top: 10em; width:100%">
                 <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
                 <table class="" style="width: 100%; border: none;">
@@ -251,6 +251,9 @@
         </div>
         <div t-if="not is_html_empty(o.narration)">
             <span t-field="o.narration"/>
+        </div>
+        <div class="watermark" style="position:absolute; top: 300px; opacity:0.15; width:100%; text-align:center; z-index: 1000;">
+          <img t-att-src="image_data_uri(company.logo)" style="width: 60%; height: auto;"/>
         </div>
         <div class="footer">
           <table style="font-size: 1rem; width: 100%; border: none;">
