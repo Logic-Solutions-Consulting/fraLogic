@@ -39,7 +39,7 @@
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
                         <strong>
                             <font>Número de factura: </font>
-                            <span t-field="o.payment_reference"/>
+                            <span t-field="o.name"/>
                         </strong>
                     </span>
                     <span t-if="o.ref and o.state == 'posted'">
@@ -279,13 +279,29 @@
                               <span t-att-class="oe_subtotal_footer_separator" t-esc="tax_totals['formatted_amount_total']"/>
                           </td>
                           <td style="border: none;">
+                            <t t-if="not o.invoice_payment_term_id">
+                              <t t-if="'Transferencia' in o.partner_id.property_payment_term_id.name"><span>Transferencia</span></t>
+                              <t t-if="'Recibo' in o.partner_id.property_payment_term_id.name"><span>Recibo</span></t>
+                              <t t-if="'Confirming' in o.partner_id.property_payment_term_id.name"><span>Confirming</span></t>
+                              <t t-if="'Pagaré' in o.partner_id.property_payment_term_id.name"><span>Pagaré</span></t>
+                            </t>
+                            <t t-else="">
                               <span t-field="o.invoice_payment_term_id"/>
+                            </t>
                           </td>
                           <td style="border: none;">
-                                <t t-if="'Transferencia' in o.invoice_payment_term_id.name"><span>ES87 2100 0386 2102 0040 4932</span></t>
-                                <t t-elif="'Recibo' in o.invoice_payment_term_id.name"><span t-field="o.partner_id.x_Domicilia"/></t>
-                                <t t-elif="'Confirming' in o.invoice_payment_term_id.name"><span>ES87 2100 0386 2102 0040 4932</span></t>
-                                <t t-elif="'Pagaré' in o.invoice_payment_term_id.name"><span>Pagaré</span></t>
+                                <!-- Neteges tiene dos cuentas donde cobran facturas según el cliente. Se usa el campo custom Referencia en la ficha de cliente
+                                para almacenar que cuenta bancaria se asigna a cada cliente. -->
+                                <t t-if="not o.invoice_payment_term_id">
+                                  <span t-field="o.partner_id.x_Referencia"/>
+                                </t>
+                                <t t-else="">
+                                  <t t-if="'Transferencia' in o.invoice_payment_term_id.name"><span t-field="o.partner_id.x_Referencia"/></t>
+                                  <t t-else=""><span t-field="o.partner_id.x_Referencia"/></t>
+                                  <t t-if="'Recibo' in o.invoice_payment_term_id.name"><span t-field="o.partner_id.x_Domicilia"/></t>
+                                  <t t-if="'Confirming' in o.invoice_payment_term_id.name"><span t-field="o.partner_id.x_Referencia"/></t>
+                                  <t t-if="'Pagaré' in o.invoice_payment_term_id.name"><span>Pagaré</span></t>
+                                </t>
                           </td>
                       </tr>
                   </tbody>
